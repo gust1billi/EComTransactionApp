@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PaymentActivity">
+
+    <TextView
+        android:id="@+id/payment_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:text="@string/payment_activity_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <include
+        android:id="@+id/payment_recycler_view"
+        layout="@layout/cart_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/horizontal_guideline"
+        app:layout_constraintTop_toBottomOf="@id/payment_title"/>
+
+    <TextView
+        android:id="@+id/total_payment_to_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Total Untuk DIbayar: Rp "
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/horizontal_guideline"/>
+
+    <TextView
+        android:id="@+id/payment_product_qty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total QTY: "
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/edit_payment_btn"
+        app:layout_constraintLeft_toRightOf="@id/exact_paid_btn"
+        app:layout_constraintRight_toLeftOf="@id/total_payment_intro"/>
+
+    <TextView
+        android:id="@+id/total_payment_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Total Pembayaran: Rp "
+        android:layout_marginEnd="128dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/horizontal_guideline"/>
+
+    <TextView
+        android:id="@+id/payment_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        android:text="-"
+        app:layout_constraintTop_toTopOf="@id/horizontal_guideline"
+        app:layout_constraintLeft_toRightOf="@id/total_payment_intro"/>
+
+    <Button
+        android:id="@+id/exact_paid_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="16dp"
+        android:text="Uang Pas"
+        app:layout_constraintTop_toBottomOf="@id/total_payment_intro"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <Button
+        android:id="@+id/edit_payment_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="UBAH PEMBAYARAN"
+        app:layout_constraintTop_toBottomOf="@id/total_payment_intro"
+        app:layout_constraintLeft_toRightOf="@id/exact_paid_btn"
+        app:layout_constraintRight_toLeftOf="@id/pay_btn"/>
+
+    <Button
+        android:id="@+id/pay_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="128dp"
+        android:layout_marginTop="16dp"
+        android:text="Bayar"
+        app:layout_constraintTop_toBottomOf="@id/total_payment_intro"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:text="LAYOUT KEYBOARD ANGKA TERHADAP TOTAL PEMBAYARAN"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

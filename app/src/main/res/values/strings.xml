@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">EComTransactionApp</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_page">LOGIN PAGE</string>
+    <string name="login_header">TMI VOLLEY LOGIN POST</string>
+
+    <string name="person_icon">person icon</string>
+    <string name="pelanggan">Pelanggan</string>
+    <string name="no_order">No. Order:</string>
+    <string name="number">num</string>
+    <string name="simpan">Simpan</string>
+    <string name="hapus">Hapus</string>
+    <string name="bayar">Bayar</string>
+    <string name="pajak_terbayar">Pajak Terbayar</string>
+    <string name="ina_price">Rp</string>
+    <string name="default_price">0</string>
+    <string name="diskon_total">Diskon Total</string>
+    <string name="total">TOTAL</string>
+    <string name="vat_10">VAT (10%)</string>
+    <string name="diskon">Diskon</string>
+    <string name="nama_produk">Nama Produk</string>
+    <string name="harga_produk">Harga Produk</string>
+    <string name="total_quantity">Total Quantity</string>
+    <string name="qty_ok">Change QTY</string>
+    <string name="cancel">Cancel</string>
+    <string name="_0">0</string>
+    <string name="add_qty">Add QTY by 1</string>
+    <string name="reduce_qty">Reduce QTY by 1</string>
+    <string name="searchBar">Search Icon</string>
+    <string name="default_user">Orang Lapar</string>
+    <string name="please_wait">Please wait as the Data Loads</string>
+    <string name="product_image">Product Image</string>
+    <string name="payment_activity_title">HALAMAN PEMBAYARAN</string>
+    <string name="stub_ok">Simpan Keranjang</string>
+    <string name="payment_ok">Konfirmasi</string>
+</resources>
