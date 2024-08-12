@@ -44,4 +44,10 @@
     <string name="payment_activity_title">HALAMAN PEMBAYARAN</string>
     <string name="stub_ok">Simpan Keranjang</string>
     <string name="payment_ok">Konfirmasi</string>
+    <string name="log_out">Log Out</string>
+    <string name="riwayat_transaksi">Riwayat Transaksi</string>
+    <string name="riwayat_simpanan">Riwayat Simpanan</string>
+
+    <string name="nav_open"> Open</string>
+    <string name="nav_close"> Close</string>
 </resources>

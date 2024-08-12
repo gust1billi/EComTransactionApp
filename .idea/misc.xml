@@ -4,20 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/drawable/bg_rounded_corner_white.xml" value="0.165" />
+        <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/drawable/ic_baseline_backspace_24.xml" value="0.137" />
+        <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/drawable/rounded_corner_grey.xml" value="0.2395" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/drawable/rounded_corner_navy.xml" value="0.1215" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/drawable/rounded_corner_teal.xml" value="0.1215" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/drawable/rounded_corner_white.xml" value="0.1215" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/activity_main.xml" value="0.275" />
-        <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/activity_payment.xml" value="0.264" />
-        <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/activity_transaction.xml" value="0.2" />
+        <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/activity_payment.xml" value="0.4" />
+        <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/activity_transaction.xml" value="0.264" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/cart_layout.xml" value="0.275" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/cart_recycler_view.xml" value="0.12552083333333333" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/cart_rv_layout.xml" value="0.264" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/dialog_quantity.xml" value="0.12552083333333333" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/dialog_stub.xml" value="0.4" />
-        <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/payment_keyboard.xml" value="0.152" />
+        <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/payment_keyboard.xml" value="0.4" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/products_layout.xml" value="0.21673003802281368" />
         <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/layout/products_rv_layout.xml" value="0.264" />
+        <entry key="..\:/IDM/AndroidStudioProjects/EComTransactionApp/app/src/main/res/menu/navigation_list.xml" value="0.27395833333333336" />
       </map>
     </option>
   </component>

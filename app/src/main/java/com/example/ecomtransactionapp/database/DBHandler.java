@@ -174,7 +174,9 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = DBHandler.this.getReadableDatabase();
 
         if (db != null)
-            cursor = db.rawQuery("SELECT * FROM " + PRODUCTS_TABLE_NAME, null);
+            cursor = db.rawQuery("SELECT * FROM " + PRODUCTS_TABLE_NAME
+                            + " ORDER BY " + PRODUCT_NAME
+                    , null);
 
         return cursor;
     }

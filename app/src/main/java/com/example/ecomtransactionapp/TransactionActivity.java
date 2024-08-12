@@ -1,8 +1,11 @@
 package com.example.ecomtransactionapp;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +15,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +34,7 @@ import com.example.ecomtransactionapp.recycler_view.Cart;
 import com.example.ecomtransactionapp.recycler_view.CartAdapter;
 import com.example.ecomtransactionapp.recycler_view.Product;
 import com.example.ecomtransactionapp.recycler_view.ProductAdapter;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,7 +48,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class TransactionActivity extends AppCompatActivity {
+public class TransactionActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
     private final String TAG = "TRANSACTION_ACTIVITY";
 
     RecyclerView productRV, cartRV;
@@ -54,6 +60,9 @@ public class TransactionActivity extends AppCompatActivity {
     List<Product> filteredProductList = new ArrayList<>();
     List<Cart> cartList = new ArrayList<>();
     List<String> titleList = new ArrayList<>();
+
+    DrawerLayout drawerLayout; NavigationView navView;
+    ActionBarDrawerToggle actionBarDrawerToggle;
 
     ImageButton reduce, add;
     Button deleteBtn, paymentBtn, stubBtn;
@@ -66,6 +75,31 @@ public class TransactionActivity extends AppCompatActivity {
     DBHandler dbHandler;
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if ( actionBarDrawerToggle.onOptionsItemSelected(item) ) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.hello){
+            Utils.showToast(TransactionActivity.this, "Hello World!");
+            return true;
+        } else if (id == R.id.transaksi){
+//            Utils.showToast(TransactionActivity.this, "Hello World!");
+            Log.e(TAG, "Halaman Riwayat Transaksi");
+        } else if (id == R.id.simpanan) {
+            Log.e(TAG, "Halaman Simpanan");
+        } else if (id == R.id.logout) {
+            finish();
+        }
+        return false;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
@@ -74,6 +108,17 @@ public class TransactionActivity extends AppCompatActivity {
         dbHandler = new DBHandler(TransactionActivity.this );
 
         recyclerViewInits();
+
+        drawerLayout = findViewById(R.id.transaction_drawer_layout);
+        navView = findViewById(R.id.transaction_nav_view);
+        if ( navView != null ){ navView.setNavigationItemSelectedListener(this); }
+        actionBarDrawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, R.string.nav_open, R.string.nav_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        // to make the Navigation drawer icon always appear on the action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navView.setNavigationItemSelectedListener(TransactionActivity.this ); // Lambda --> On Navigation Item Listener
 
         loadingAnimation = findViewById(R.id.waiting);
         waiting = findViewById(R.id.waiting_text);
@@ -113,7 +158,7 @@ public class TransactionActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(TransactionActivity.this);
         LayoutInflater inflater = TransactionActivity.this.getLayoutInflater();
 
-        builder.setView(inflater.inflate(R.layout.dialog_stub, null ) )
+        builder.setView(inflater.inflate( R.layout.dialog_stub, null ) )
                 .setTitle("SET STUBBED CART NAME")
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> { /* IGNORE */ })
                 .setPositiveButton(R.string.stub_ok, (dialogInterface, i) -> {

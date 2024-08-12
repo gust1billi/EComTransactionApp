@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/hello"
+        android:title="Hello World!" />
+    <item
+        android:id="@+id/transaksi"
+        android:title="@string/riwayat_transaksi"/>
+    <item
+        android:id="@+id/simpanan"
+        android:title="@string/riwayat_simpanan"/>
+    <item
+        android:id="@+id/logout"
+        android:title="@string/log_out"/>
+
+</menu>

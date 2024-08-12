@@ -20,6 +20,10 @@ public class Utils {
         return dateFormat.format(date);
     }
 
+    public static String chop(String str){
+        return str.substring(0, str.length() - 1);
+    }
+
     public static boolean isEmail(String email){
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
