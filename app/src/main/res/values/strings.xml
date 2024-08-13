@@ -50,4 +50,9 @@
 
     <string name="nav_open"> Open</string>
     <string name="nav_close"> Close</string>
+    <string name="halaman_list_produk">Halaman List Produk</string>
+    <string name="stub_name">Stub Name</string>
+    <string name="history_qty">Total Product Quantity: </string>
+    <string name="history_price">Total Price Paid: </string>
+    <string name="dialog_stub_hint">NAMA KERANJANG YANG DISIMPAN</string>
 </resources>

@@ -172,12 +172,56 @@ public class DBHandler extends SQLiteOpenHelper {
     public Cursor readAllProducts(){
         Cursor cursor = null;
         SQLiteDatabase db = DBHandler.this.getReadableDatabase();
-
         if (db != null)
             cursor = db.rawQuery("SELECT * FROM " + PRODUCTS_TABLE_NAME
                             + " ORDER BY " + PRODUCT_NAME
                     , null);
+        return cursor;
+    }
 
+    public Cursor readAllStubs(){
+        Cursor cursor = null;
+        SQLiteDatabase db = DBHandler.this.getReadableDatabase();
+        if (db != null){
+            cursor = db.rawQuery(
+                    "SELECT s." + COLUMN_ID
+                            + ", s." + STUBS_NAME
+                            + ", SUM(sp." + STUBS_PRODUCT_QTY + ")"
+                            + ", SUM(sp." + STUBS_PRODUCT_QTY + " * p." + PRODUCT_PRICE + ") "
+                            + " FROM " + STUB_TABLE_NAME + " s "
+                            + "INNER JOIN " + STUB_PRODUCT_TABLE_NAME
+                            + " sp ON sp." + STUBS_ID + " = s." + COLUMN_ID
+                            + " INNER JOIN " + PRODUCTS_TABLE_NAME
+                            + " p ON p." + COLUMN_ID + " = sp." + STUBS_PRODUCT_ID
+                            + " GROUP BY s." + COLUMN_ID
+                    , null);
+        } return cursor;
+    }
+
+    public Cursor readStubCart(int POSITION_ID){
+        Cursor cursor = null;
+        SQLiteDatabase db = DBHandler.this.getReadableDatabase();
+        if ( db != null)
+            cursor = db.rawQuery(
+                    "SELECT p." + PRODUCT_NAME
+                            + ", sp." + STUBS_PRODUCT_QTY
+                            + ", p." + PRODUCT_PRICE
+                            + " FROM " + STUB_PRODUCT_TABLE_NAME  + " sp"
+                            + " INNER JOIN " + PRODUCTS_TABLE_NAME
+                            + " p ON p." + COLUMN_ID + " = sp." + STUBS_PRODUCT_ID
+                            + " WHERE sp." + STUBS_ID + " = " + POSITION_ID
+                            + " GROUP BY p." + PRODUCT_NAME
+                    , null);
+        return cursor;
+    }
+
+    public Cursor readAllReceipts() {
+        Cursor cursor = null;
+        SQLiteDatabase db = DBHandler.this.getReadableDatabase();
+        if ( db != null ){
+            cursor = db.rawQuery("SELECT * FROM " + RECEIPT_TABLE_NAME
+                    , null);
+        }
         return cursor;
     }
 
@@ -212,23 +256,24 @@ public class DBHandler extends SQLiteOpenHelper {
     public int getProductId(String name) {
         SQLiteDatabase db = DBHandler.this.getReadableDatabase();
         Cursor cursor;
-
         cursor = db.rawQuery(
                 "SELECT " + COLUMN_ID + " FROM " + PRODUCTS_TABLE_NAME +
                         " WHERE " + PRODUCT_NAME + " = \"" + name + "\""
                 ,null);
         cursor.moveToFirst();
-        return cursor.getInt(0);
+        int result = cursor.getInt(0);
+        cursor.close();
+        return result;
     }
 
     private int getReceiptId(){
         SQLiteDatabase db = DBHandler.this.getReadableDatabase();
         Cursor cursor;
-
         cursor = db.rawQuery("SELECT " + COLUMN_ID + " FROM " + RECEIPT_TABLE_NAME
                 , null );
         cursor.moveToLast();
-        return cursor.getInt(0);
+        int result = cursor.getInt(0);
+        cursor.close();
+        return result;
     }
-
 }

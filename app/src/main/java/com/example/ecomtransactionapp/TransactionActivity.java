@@ -34,6 +34,9 @@ import com.example.ecomtransactionapp.recycler_view.Cart;
 import com.example.ecomtransactionapp.recycler_view.CartAdapter;
 import com.example.ecomtransactionapp.recycler_view.Product;
 import com.example.ecomtransactionapp.recycler_view.ProductAdapter;
+import com.example.ecomtransactionapp.recycler_view.Stub;
+import com.example.ecomtransactionapp.recycler_view.StubAdapter;
+import com.example.ecomtransactionapp.recycler_view.Transaction;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
@@ -52,12 +55,15 @@ public class TransactionActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
     private final String TAG = "TRANSACTION_ACTIVITY";
 
-    RecyclerView productRV, cartRV;
+    RecyclerView mainRV, cartRV;
     LinearLayoutManager productLayoutManager, cartLayoutManager;
     ProductAdapter productAdapter; CartAdapter cartAdapter;
 
     List<Product> productList = new ArrayList<>();
     List<Product> filteredProductList = new ArrayList<>();
+    List<Transaction> transactionList = new ArrayList<>(); // Apa yg bisa gw filter kalo ini?
+    List<Stub> stubList = new ArrayList<>();
+    List<Stub> filteredStubList = new ArrayList<>();
     List<Cart> cartList = new ArrayList<>();
     List<String> titleList = new ArrayList<>();
 
@@ -88,11 +94,16 @@ public class TransactionActivity extends AppCompatActivity implements
         if (id == R.id.hello){
             Utils.showToast(TransactionActivity.this, "Hello World!");
             return true;
+        } else if (id == R.id.products) {
+//            checkProductData();
+            switchRecyclerViewDisplay(0);
         } else if (id == R.id.transaksi){
-//            Utils.showToast(TransactionActivity.this, "Hello World!");
+            // posisi sama, tapi isi beda. Cek SQLite; if not null assign to new adapter
             Log.e(TAG, "Halaman Riwayat Transaksi");
+            switchRecyclerViewDisplay(1);
         } else if (id == R.id.simpanan) {
             Log.e(TAG, "Halaman Simpanan");
+            switchRecyclerViewDisplay(2);
         } else if (id == R.id.logout) {
             finish();
         }
@@ -154,6 +165,38 @@ public class TransactionActivity extends AppCompatActivity implements
         checkProductData();
     }
 
+    private void switchRecyclerViewDisplay(int value) {
+        Cursor cursor;
+        // Keep using the old files or create new ones?
+        switch (value){
+            case 0:
+                checkProductData(); // Halaman Transaksi Utama,
+                break;
+            case 1:
+                cursor = dbHandler.readAllReceipts();
+                break;
+            case 2:
+                cursor = dbHandler.readAllStubs( );
+                stubList.clear();
+                if (cursor.getCount() > 0 ){
+                    while (cursor.moveToNext() ){
+                        stubList.add( new Stub(
+                                cursor.getString(1),
+                                cursor.getInt(0),
+                                cursor.getInt(2),
+                                cursor.getInt(3)
+                        ) );
+                    }
+
+                    StubAdapter stubAdapter = new StubAdapter(TransactionActivity.this, stubList);
+                    mainRV.setAdapter(stubAdapter);
+                } else Utils.showToast(TransactionActivity.this, "Tabel Simpanan Kosong");
+                // Kalau kosong ga jadi, Toast kosong bro
+
+                break;
+        }
+    }
+
     private void callStubDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(TransactionActivity.this);
         LayoutInflater inflater = TransactionActivity.this.getLayoutInflater();
@@ -191,18 +234,6 @@ public class TransactionActivity extends AppCompatActivity implements
         cartAdapter.itemPurged( size ); update_total( );
     }
 
-    private void recyclerViewInits() {
-        productLayoutManager = new LinearLayoutManager(TransactionActivity.this);
-        cartLayoutManager = new LinearLayoutManager(TransactionActivity.this);
-        cartAdapter = new CartAdapter(TransactionActivity.this, cartList, titleList);
-
-        productRV = findViewById(R.id.product_recyclerView);
-        cartRV = findViewById(R.id.cart_recyclerView);
-        productRV.setLayoutManager(productLayoutManager);
-        cartRV.setLayoutManager(cartLayoutManager);
-        cartRV.setAdapter(cartAdapter );
-    }
-
     private void filterProducts( String filter ) {
         filteredProductList = new ArrayList<>();
         for ( Product filteredProduct : productList ) {
@@ -226,7 +257,7 @@ public class TransactionActivity extends AppCompatActivity implements
                 ) );
             }
             productAdapter = new ProductAdapter(TransactionActivity.this, productList );
-            productRV.setAdapter(productAdapter);
+            mainRV.setAdapter(productAdapter);
             loadingAnimation.setVisibility(View.INVISIBLE);
             waiting.setVisibility(View.INVISIBLE);
         } else {
@@ -280,7 +311,7 @@ public class TransactionActivity extends AppCompatActivity implements
                             ));
                         } Log.e(TAG, "LIST SIZE: " + productList.size() );
                         productAdapter = new ProductAdapter(TransactionActivity.this, productList);
-                        productRV.setAdapter(productAdapter);
+                        mainRV.setAdapter(productAdapter);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -318,6 +349,7 @@ public class TransactionActivity extends AppCompatActivity implements
     }
 
     // TOMBOL UNTUK RV YG SEMUA PRODUK
+
     public void addToCart(String name, String price) {
         // JIKA JUDUL BELUM PERNAH MASUK KE CART
         if ( !titleList.contains( name ) ){
@@ -331,8 +363,8 @@ public class TransactionActivity extends AppCompatActivity implements
         }
         update_total();
     }
-
     // DIALOG POP UP UNTUK MENGGANTI QTY PRODUK DALAM CART
+
     public void setQuantityDialog(String product_name, String currentQty, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(TransactionActivity.this);
         LayoutInflater inflater = TransactionActivity.this.getLayoutInflater();
@@ -411,6 +443,18 @@ public class TransactionActivity extends AppCompatActivity implements
             startActivity(i);
             clearCart();
         } else Utils.showToast(TransactionActivity.this, "Cart is Empty.");
+    }
+
+    private void recyclerViewInits() {
+        productLayoutManager = new LinearLayoutManager(TransactionActivity.this);
+        cartLayoutManager = new LinearLayoutManager(TransactionActivity.this);
+        cartAdapter = new CartAdapter(TransactionActivity.this, cartList, titleList);
+
+        mainRV = findViewById(R.id.product_recyclerView);
+        cartRV = findViewById(R.id.cart_recyclerView);
+        mainRV.setLayoutManager(productLayoutManager);
+        cartRV.setLayoutManager(cartLayoutManager);
+        cartRV.setAdapter(cartAdapter );
     }
 
     private void activityInit() {

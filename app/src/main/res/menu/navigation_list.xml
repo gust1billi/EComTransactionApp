@@ -4,6 +4,9 @@
         android:id="@+id/hello"
         android:title="Hello World!" />
     <item
+        android:id="@+id/products"
+        android:title="@string/halaman_list_produk"/>
+    <item
         android:id="@+id/transaksi"
         android:title="@string/riwayat_transaksi"/>
     <item

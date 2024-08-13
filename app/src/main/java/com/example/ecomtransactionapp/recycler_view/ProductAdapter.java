@@ -46,7 +46,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.productV
         holder.name.setText( product.getProductName() );
 
         holder.itemView.setOnClickListener( view ->
-                ( (TransactionActivity)ctx).addToCart( product.getProductName(), product.getPrice() ) );
+                ( (TransactionActivity)ctx).addToCart(
+                        product.getProductName(),
+                        product.getPrice()
+                )
+        );
     }
 
     @Override
