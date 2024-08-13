@@ -49,21 +49,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.price.setText( item.getPrice() );
         holder.qty.setText( String.valueOf(item.getQuantity()) );
 
-        holder.name.setOnClickListener(view -> {
-            ((TransactionActivity)ctx).setQuantityDialog(
+        holder.name.setOnClickListener(
+                view -> ((TransactionActivity)ctx).setQuantityDialog(
                     holder.name.getText().toString(),
                     holder.qty.getText().toString(),
                     position
-            );
-        });
+        ));
 
-        holder.qty.setOnClickListener(view -> {
-            ((TransactionActivity)ctx).setQuantityDialog(
+        holder.qty.setOnClickListener(
+                view -> ((TransactionActivity)ctx).setQuantityDialog(
                     holder.name.getText().toString(),
                     holder.qty.getText().toString(),
                     position
-            );
-        });
+        ));
     }
 
     @Override
@@ -73,14 +71,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     public void newItemAdded(int positionStack) {
         notifyItemInserted( positionStack );
-        notifyItemRangeChanged(0, positionStack);
+        notifyItemRangeChanged(0, positionStack );
     }
 
     public void itemAdded(int positionStack) {
         Log.e(TAG, "size: " + cartList.size() );
 
         notifyItemChanged( positionStack );
-        notifyItemRangeChanged(0, positionStack);
+        notifyItemRangeChanged(0, positionStack );
         // CHECK IF CART ALREADY HAVE THE ITEM
         // IF ITEM EXIST IN THE POSITION OF X
     }

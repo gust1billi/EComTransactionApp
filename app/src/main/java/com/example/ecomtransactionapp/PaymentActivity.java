@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -16,7 +17,6 @@ import com.example.ecomtransactionapp.database.DBHandler;
 import com.example.ecomtransactionapp.recycler_view.Cart;
 import com.example.ecomtransactionapp.recycler_view.CartAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -26,7 +26,7 @@ public class PaymentActivity extends AppCompatActivity {
     LinearLayoutManager cartLayoutManager;
     CartAdapter cartAdapter;
 
-    List<Cart> cartList = new ArrayList<>();
+    List<Cart> cartList;
 
     DBHandler dbHandler;
 
@@ -149,12 +149,14 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        cartRV = findViewById(R.id.cart_recyclerView);
         cartLayoutManager = new LinearLayoutManager(PaymentActivity.this);
+        cartRV = findViewById( R.id.payment_recycler_view );
 
         Intent i = getIntent();
         cartList = (List<Cart>) i.getSerializableExtra("cart");
+
         cartAdapter = new CartAdapter(PaymentActivity.this, cartList);
-        cartRV.setAdapter(cartAdapter); cartRV.setLayoutManager(cartLayoutManager);
+        cartRV.setAdapter(cartAdapter);
+        cartRV.setLayoutManager(cartLayoutManager);
     }
 }

@@ -173,11 +173,11 @@ public class TransactionActivity extends AppCompatActivity implements
                 checkProductData(); // Halaman Transaksi Utama,
                 break;
             case 1:
-                cursor = dbHandler.readAllReceipts();
+                // cursor = dbHandler.readAllReceipts();
                 break;
             case 2:
                 cursor = dbHandler.readAllStubs( );
-                stubList.clear();
+                stubList.clear(); clearCart();
                 if (cursor.getCount() > 0 ){
                     while (cursor.moveToNext() ){
                         stubList.add( new Stub(
@@ -187,14 +187,26 @@ public class TransactionActivity extends AppCompatActivity implements
                                 cursor.getInt(3)
                         ) );
                     }
-
-                    StubAdapter stubAdapter = new StubAdapter(TransactionActivity.this, stubList);
+                    StubAdapter stubAdapter = new StubAdapter(
+                            TransactionActivity.this, stubList);
                     mainRV.setAdapter(stubAdapter);
-                } else Utils.showToast(TransactionActivity.this, "Tabel Simpanan Kosong");
-                // Kalau kosong ga jadi, Toast kosong bro
-
+                } else Utils.showToast(TransactionActivity.this,
+                        "Tabel Simpanan Kosong"); // Kalau kosong ga jadi, Toast INFO kosong
                 break;
         }
+    }
+
+    public void stubToCart(int id) {
+        Cursor cursor = dbHandler.readStubCart( id ); clearCart();
+        while ( cursor.moveToNext( ) ){
+            titleList.add( cursor.getString(0 ) );
+            cartList.add( new Cart(
+                    cursor.getString(0),
+                    cursor.getInt(1),
+                    String.valueOf( cursor.getInt(2) )
+            ));
+            cartAdapter.newItemAdded( titleList.indexOf( cursor.getString(0 ) ) );
+        } update_total();
     }
 
     private void callStubDialog() {
@@ -354,15 +366,17 @@ public class TransactionActivity extends AppCompatActivity implements
         // JIKA JUDUL BELUM PERNAH MASUK KE CART
         if ( !titleList.contains( name ) ){
             titleList.add( name );
+            // Pakai title list karena List<Object>.get(position).contains pusing
             Log.e(TAG, "TITLE LIST: " + titleList.size());
             cartList.add( new Cart( name, price ) );
             cartAdapter.newItemAdded( titleList.indexOf( name ) );
         } else {
-            cartList.get( titleList.indexOf( name) ).addQuantity();
+            cartList.get( titleList.indexOf( name ) ).addQuantity();
             cartAdapter.itemAdded( titleList.indexOf( name ) );
         }
         update_total();
     }
+
     // DIALOG POP UP UNTUK MENGGANTI QTY PRODUK DALAM CART
 
     public void setQuantityDialog(String product_name, String currentQty, int position) {

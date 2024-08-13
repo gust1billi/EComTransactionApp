@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecomtransactionapp.R;
+import com.example.ecomtransactionapp.TransactionActivity;
 
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class StubAdapter extends RecyclerView.Adapter<StubAdapter.StubViewHolder
         holder.s_qty.append(" " + stub.getQty() );
         holder.s_price.setText( R.string.history_price);
         holder.s_price.append( " " + stub.getPrice() );
+        holder.itemView.setOnClickListener(view ->
+                ((TransactionActivity)ctx).stubToCart( stub.getId( ) ) );
     }
 
     @Override
